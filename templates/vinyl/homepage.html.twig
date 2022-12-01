@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Créer un nouveau disque |
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<h1>{{ title }}</h1>
+
+	<div>
+		Tracks :
+
+		<ul>
+			{% for track in tracks %}
+				<li>{{ track.song }}
+					-
+					{{ track.artist | upper }}</li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endblock %}
