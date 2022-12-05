@@ -4,6 +4,7 @@ namespace App\Service;
 
 use Psr\Cache\CacheItemInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -12,7 +13,8 @@ class MixRepository
     public function __construct(
         protected HttpClientInterface $httpClient,
         protected CacheInterface $cache,
-        private bool $isDebug //Paramètre non 'AutoWirable' dont la valeur est configurée dans le services.yaml
+        #[Autowire('%kernel.debug%')]
+        private bool $isDebug //Paramètre 'non-autowireable' dont la valeur est configurée dans le services.yaml ou par attribut PHP8
     ) {
     }
 
