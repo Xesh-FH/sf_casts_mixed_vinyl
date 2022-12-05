@@ -4,6 +4,7 @@ namespace App\Service;
 
 use Psr\Cache\CacheItemInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Bridge\Twig\Command\DebugCommand;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -14,7 +15,8 @@ class MixRepository
         protected HttpClientInterface $githubContentClient,
         protected CacheInterface $cache,
         #[Autowire('%kernel.debug%')]
-        private bool $isDebug //Paramètre 'non-autowireable' dont la valeur est configurée dans le services.yaml ou par attribut PHP8
+        protected bool $isDebug, //Paramètre 'non-autowireable' dont la valeur est configurée dans le services.yaml ou par attribut PHP8
+        protected DebugCommand $twigDebugCommand
     ) {
     }
 
