@@ -8,13 +8,10 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class MixRepository
 {
-    protected HttpClientInterface $httpClient;
-    protected CacheInterface $cache;
-
-    public function __construct(HttpClientInterface $httpClient, CacheInterface $cache)
-    {
-        $this->httpClient = $httpClient;
-        $this->cache = $cache;
+    public function __construct(
+        protected HttpClientInterface $httpClient,
+        protected CacheInterface $cache
+    ) {
     }
 
     public function findAll(): array
