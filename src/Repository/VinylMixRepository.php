@@ -39,28 +39,31 @@ class VinylMixRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return VinylMix[] Returns an array of VinylMix objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('v')
-//            ->andWhere('v.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('v.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return VinylMix[] Returns an array of VinylMix objects
+     */
+    public function findAllOrderedByVotes(string $genre = null): array
+    {
 
-//    public function findOneBySomeField($value): ?VinylMix
-//    {
-//        return $this->createQueryBuilder('v')
-//            ->andWhere('v.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        $qb =  $this->createQueryBuilder('mix')
+            ->orderBy('mix.votes', 'DESC');
+
+        if ($genre) {
+            $qb
+                ->andWhere('mix.genre = :genre')
+                ->setParameter('genre', $genre);
+        }
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+
+    // public function findOneBySomeField($value): ?VinylMix
+    // {
+    //     return $this->createQueryBuilder('v')
+    //         ->andWhere('v.exampleField = :val')
+    //         ->setParameter('val', $value)
+    //         ->getQuery()
+    //         ->getOneOrNullResult();
+    // }
 }
