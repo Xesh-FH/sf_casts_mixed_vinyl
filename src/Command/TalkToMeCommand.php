@@ -2,14 +2,14 @@
 
 namespace App\Command;
 
-use App\Service\MixRepository;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Style\SymfonyStyle;
+use App\Repository\VinylMixRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
     name: 'app:talk-to-me',
@@ -17,35 +17,36 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 class TalkToMeCommand extends Command
 {
-    public function __construct(private MixRepository $mixRepository)
-    {
+    public function __construct(
+        private VinylMixRepository $mixRepository
+    ) {
         parent::__construct();
     }
 
     protected function configure(): void
     {
         $this
-            ->addArgument('name', InputArgument::OPTIONAL, 'Your Name')
-            ->addOption('yell', null, InputOption::VALUE_NONE, 'Shall I YELL ?!');
+            ->addArgument('name', InputArgument::OPTIONAL, 'Your name')
+            ->addOption('yell', null, InputOption::VALUE_NONE, 'Shall I yell?');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $name = $input->getArgument('name') ?: 'whoever you are !';
+        $name = $input->getArgument('name') ?: 'whoever you are';
         $shouldYell = $input->getOption('yell');
 
-        $msg = sprintf('Hey %s !', $name);
+        $message = sprintf('Hey %s!', $name);
         if ($shouldYell) {
-            $msg = strtoupper($msg);
+            $message = strtoupper($message);
         }
 
-        $io->success($msg);
+        $io->success($message);
 
-        if ($io->confirm('Do you want a mix recommandation ?')) {
+        if ($io->confirm('Do you want a mix recommendation?')) {
             $mixes = $this->mixRepository->findAll();
             $mix = $mixes[array_rand($mixes)];
-            $io->note('I recommand the mix : ' . $mix['title']);
+            $io->note('I recommend the mix: ' . $mix['title']);
         }
 
         return Command::SUCCESS;
