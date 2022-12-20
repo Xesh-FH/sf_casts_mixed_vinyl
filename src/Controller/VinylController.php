@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use App\Repository\VinylMixRepository;
-use App\Service\MixRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

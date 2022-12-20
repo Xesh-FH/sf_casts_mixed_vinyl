@@ -24,7 +24,7 @@
 				{% for mix in mixes %}
 					<div class="col col-md-4">
 						<div class="mixed-vinyl-container p-3 text-center">
-							<img src="https://via.placeholder.com/300" data-src="https://via.placeholder.com/300" alt="Square placeholder img">
+							<img src="{{ mix.imageUrl(300) }}" alt="Mix Album Cover">
 							<p class="mt-2">
 								<strong>{{ mix.title }}</strong>
 							</p>
@@ -34,7 +34,7 @@
 							|
 							<span>{{ mix.createdAt|ago }}</span>
 							<br>
-							{{ mix.votes }}
+							{{ mix.votesString }}
 						</div>
 					</div>
 				{% endfor %}
