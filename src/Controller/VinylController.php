@@ -41,7 +41,7 @@ class VinylController extends AbstractController
         $adapter = new QueryAdapter($qb);
         $pagerfanta = Pagerfanta::createForCurrentPageWithMaxPerPage(
             $adapter,
-            $request->query->get('page', 1), // On récupère le paramètre de requète 'page' s'il existe sinon on passe '1' par défaut
+            $request->query->getInt('page', 1), // On récupère le paramètre de requète 'page' s'il existe sinon on passe '1' par défaut et on cast en Int
             9
         );
 
