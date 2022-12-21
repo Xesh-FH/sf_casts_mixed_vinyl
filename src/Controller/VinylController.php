@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Repository\VinylMixRepository;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,11 +36,17 @@ class VinylController extends AbstractController
     public function browse(VinylMixRepository $mixRepository, string $slug = null): Response
     {
         $musicStyle = $slug ? u(str_replace('-', ' ', $slug))->title(true) : null;
-        $mixes = $mixRepository->findAllOrderedByVotes($slug);
+        $qb = $mixRepository->createOrderedByVotesQueryBuilder($slug);
+        $adapter = new QueryAdapter($qb);
+        $pagerfanta = Pagerfanta::createForCurrentPageWithMaxPerPage(
+            $adapter,
+            1,
+            9
+        );
 
         return $this->render('vinyl/browse.html.twig', [
             'style' => $musicStyle,
-            'mixes' => $mixes
+            'pager' => $pagerfanta,
         ]);
     }
 }

@@ -41,10 +41,7 @@ class VinylMixRepository extends ServiceEntityRepository
         }
     }
 
-    /**
-     * @return VinylMix[] Returns an array of VinylMix objects
-     */
-    public function findAllOrderedByVotes(string $genre = null): array
+    public function createOrderedByVotesQueryBuilder(string $genre = null): QueryBuilder
     {
 
         $qb =  $this->addOrderByVotesQueryBuilder();
@@ -55,8 +52,7 @@ class VinylMixRepository extends ServiceEntityRepository
                 ->setParameter('genre', $genre);
         }
 
-        return $qb->getQuery()
-            ->getResult();
+        return $qb;
     }
 
     private function addOrderByVotesQueryBuilder(QueryBuilder $qb = null): QueryBuilder
@@ -66,13 +62,4 @@ class VinylMixRepository extends ServiceEntityRepository
 
         return $qb;
     }
-
-    // public function findOneBySomeField($value): ?VinylMix
-    // {
-    //     return $this->createQueryBuilder('v')
-    //         ->andWhere('v.exampleField = :val')
-    //         ->setParameter('val', $value)
-    //         ->getQuery()
-    //         ->getOneOrNullResult();
-    // }
 }
