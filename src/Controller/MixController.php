@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\VinylMix;
-use App\Repository\VinylMixRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,7 +33,7 @@ class MixController extends AbstractController
         ));
     }
 
-    #[Route('mix/{id}', name: 'app_mix_show')]
+    #[Route('mix/{slug}', name: 'app_mix_show')]
     public function show(VinylMix $mix): Response
     {
         return $this->render('mix/show.html.twig', [
@@ -56,7 +55,7 @@ class MixController extends AbstractController
         $this->addFlash('success', 'Vote counted !');
 
         return $this->redirectToRoute('app_mix_show', [
-            'id' => $mix->getId(),
+            'slug' => $mix->getSlug(),
         ]);
     }
 }
