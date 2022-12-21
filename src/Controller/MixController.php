@@ -11,16 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class MixController extends AbstractController
 {
-    #[Route('/mix/new')]
-    public function new(EntityManagerInterface $em): Response
-    {
-        return new Response(sprintf(
-            'Mix %d is %d tracks of 80\'s heaven !',
-            $mix->getId(),
-            $mix->getTrackCount()
-        ));
-    }
-
     #[Route('mix/{slug}', name: 'app_mix_show')]
     public function show(VinylMix $mix): Response
     {
