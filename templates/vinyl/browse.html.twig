@@ -2,19 +2,19 @@
 
 {% block body %}
 	<div class="container">
-		<h1>Parcourir
-			{{ style ? style : 'Tous les styles' }}</h1>
+		<h1>Browse
+			{{ genre ? genre : 'All Genres' }}</h1>
 
-		<h2 class="mt-5 mb-4">Filtrer par style</h2>
+		<h2 class="mt-5 mb-4">Filter by Genre</h2>
 		<ul class="genre-list ps-0 mt-2 mb-3">
 			<li class="d-inline">
-				<a class="btn btn-primary btn-sm" href="{{ path('app_browse', {slug: 'pop'}) }}">Pop</a>
+				<a class="btn btn-primary btn-sm" href="{{ path('app_browse', { slug: 'pop' }) }}">Pop</a>
 			</li>
 			<li class="d-inline">
-				<a class="btn btn-primary btn-sm" href="{{ path('app_browse', {slug: 'rock'}) }}">Rock</a>
+				<a class="btn btn-primary btn-sm" href="{{ path('app_browse', { slug: 'rock' }) }}">Rock</a>
 			</li>
 			<li class="d-inline">
-				<a class="btn btn-primary btn-sm" href="{{ path('app_browse', {slug: 'all-accordion'}) }}">All Accordion</a>
+				<a class="btn btn-primary btn-sm" href="{{ path('app_browse', { slug: 'all-accordion' }) }}">All Accordion</a>
 			</li>
 		</ul>
 
@@ -23,18 +23,20 @@
 			<div class="row">
 				{% for mix in pager %}
 					<div class="col col-md-4">
-						<a href="{{ path('app_mix_show', {slug: mix.slug}) }}" class="mixed-vinyl-container p-3 text-center">
-							<img src="{{ mix.imageUrl(300) }}" alt="Mix Album Cover">
+						<a href="{{ path('app_mix_show', { slug: mix.slug }) }}" class="mixed-vinyl-container p-3 text-center">
+							<img src="{{ mix.getImageUrl(300) }}" alt="Mix album cover">
 							<p class="mt-2">
 								<strong>{{ mix.title }}</strong>
 							</p>
-							<span>{{ mix.trackCount }}</span>
+							<span>{{ mix.trackCount }}
+								Tracks</span>
 							|
 							<span>{{ mix.genre }}</span>
 							|
 							<span>{{ mix.createdAt|ago }}</span>
 							<br>
 							{{ mix.votesString }}
+							votes
 						</a>
 					</div>
 				{% endfor %}

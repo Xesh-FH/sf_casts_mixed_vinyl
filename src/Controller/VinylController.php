@@ -46,7 +46,7 @@ class VinylController extends AbstractController
         );
 
         return $this->render('vinyl/browse.html.twig', [
-            'style' => $musicStyle,
+            'genre' => $musicStyle,
             'pager' => $pagerfanta,
         ]);
     }
