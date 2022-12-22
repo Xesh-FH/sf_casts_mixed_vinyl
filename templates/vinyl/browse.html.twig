@@ -23,19 +23,20 @@
 			<turbo-frame id="mix-browse-list-{{ pager.currentPage }}" target="_top">
 				<div class="row">
 					{% for mix in pager %}
-						<div class="col col-md-4">
+						<div class="col col-md-4 mb-4">
 							<a href="{{ path('app_mix_show', { slug: mix.slug }) }}" class="mixed-vinyl-container p-3 text-center">
 								<img src="{{ mix.getImageUrl(300) }}" alt="Mix album cover">
 								<p class="mt-2">
 									<strong>{{ mix.title }}</strong>
 								</p>
-								<span>{{ mix.trackCount }}
-									Tracks</span>
-								|
-								<span>{{ mix.genre }}</span>
-								|
-								<span>{{ mix.createdAt|ago }}</span>
-								<br>
+								<div>
+									<span>{{ mix.trackCount }}
+										Tracks</span>
+									|
+									<span>{{ mix.genre }}</span>
+									|
+									<span>{{ mix.createdAt|ago }}</span>
+								</div>
 								{{ mix.votesString }}
 								votes
 							</a>
